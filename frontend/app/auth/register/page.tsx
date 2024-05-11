@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function Home() {
@@ -9,7 +10,7 @@ export default function Home() {
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
 		try {
-			const response = await fetch('http://localhost:3001/auth/login', {
+			const response = await fetch('http://localhost:3001/auth/register', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -32,7 +33,7 @@ export default function Home() {
 		<div className="flex min-h-full flex-col justify-center px-6 py-20 lg:px-8">
 			<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 				<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-					Sign in to your account
+					Sign up a new account
 				</h2>
 			</div>
 
@@ -76,18 +77,18 @@ export default function Home() {
 						<button
 							type="submit"
 							className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-							Sign in
+							Sign up
 						</button>
 					</div>
 				</form>
 
 				<p className="mt-10 text-center text-sm text-gray-500">
-					Not a member?{' '}
-					<a
-						href="#"
-						className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-						Register
-					</a>
+					Already a member?{' '}
+					<Link href="/auth/login">
+						<span className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+							Login
+						</span>
+					</Link>
 				</p>
 			</div>
 		</div>

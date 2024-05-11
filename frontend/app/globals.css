@@ -3,31 +3,31 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+	--primary-color: #3498db; /* Основной цвет */
+	--text-color: #333; /* Цвет текста */
+	--font-family: Arial, sans-serif; /* Шрифт */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
+/* Обнуление стилей */
+html,
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+	margin: 0;
+	padding: 0;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Стили для body */
+body {
+	font-family: var(--font-family); /* Используем шрифт, определенный в :root */
+	color: var(--text-color); /* Используем цвет текста, определенный в :root */
+	background-color: #f8f8f8; /* Цвет фона */
+}
+
+/* Стили для ссылок */
+a {
+	color: var(--primary-color); /* Цвет ссылок */
+	text-decoration: none; /* Убираем подчеркивание у ссылок */
+}
+
+a:hover {
+	text-decoration: underline; /* Добавляем подчеркивание при наведении на ссылку */
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function Home() {
@@ -83,11 +84,11 @@ export default function Home() {
 
 				<p className="mt-10 text-center text-sm text-gray-500">
 					Not a member?{' '}
-					<a
-						href="#"
-						className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-						Register
-					</a>
+					<Link href="/auth/register">
+						<span className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+							Register
+						</span>
+					</Link>
 				</p>
 			</div>
 		</div>
