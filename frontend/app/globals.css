@@ -3,31 +3,29 @@
 @tailwind utilities;
 
 :root {
-	--primary-color: #3498db; /* Основной цвет */
-	--text-color: #333; /* Цвет текста */
-	--font-family: Arial, sans-serif; /* Шрифт */
+	--primary-color: #3498db;
+	--text-color: #333;
+	--font-family: Arial, sans-serif;
 }
 
-/* Обнуление стилей */
 html,
 body {
 	margin: 0;
 	padding: 0;
+	height: 100%;
 }
 
-/* Стили для body */
 body {
-	font-family: var(--font-family); /* Используем шрифт, определенный в :root */
-	color: var(--text-color); /* Используем цвет текста, определенный в :root */
-	background-color: #f8f8f8; /* Цвет фона */
+	font-family: var(--font-family);
+	color: var(--text-color);
+	background-color: #f8f8f8;
 }
 
-/* Стили для ссылок */
 a {
-	color: var(--primary-color); /* Цвет ссылок */
-	text-decoration: none; /* Убираем подчеркивание у ссылок */
+	color: var(--primary-color);
+	text-decoration: none;
 }
 
 a:hover {
-	text-decoration: underline; /* Добавляем подчеркивание при наведении на ссылку */
+	text-decoration: underline;
 }

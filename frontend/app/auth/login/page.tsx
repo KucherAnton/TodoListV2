@@ -1,11 +1,19 @@
 'use client';
 
+import { checkAuthentication } from '@/utils/checkAuth';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const router = useRouter();
+
+	useEffect(() => {
+		const isAuth = checkAuthentication();
+		if (isAuth) router.push('/');
+	}, []);
 
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
@@ -21,6 +29,7 @@ export default function Home() {
 				const { token } = await response.json();
 				localStorage.setItem('token', token);
 				console.log('Авторизация успешна');
+				router.push('/');
 			} else {
 				console.error('Ошибка аутентификации');
 			}
