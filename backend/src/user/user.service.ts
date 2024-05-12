@@ -4,17 +4,16 @@ import { Model } from 'mongoose';
 import { User } from 'src/schemas/User.schema';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
-import { SignUpDto } from 'src/auth/dto/SignUp.dto';
-import { SignInDto } from 'src/auth/dto/SignIn.dto';
+import { UserDto } from 'src/user/dto/User.dto';
 
 @Injectable()
-export class AuthService {
+export class UserService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
     private jwtService: JwtService,
   ) {}
 
-  async signUp(signUpDto: SignUpDto): Promise<{ token: string }> {
+  async signUp(signUpDto: UserDto): Promise<{ token: string }> {
     const { username, password } = signUpDto;
 
     const hashedPassword = await bcrypt.hash(password, 5);
@@ -29,7 +28,7 @@ export class AuthService {
     return { token };
   }
 
-  async signIn(signInDto: SignInDto): Promise<{ token: string }> {
+  async signIn(signInDto: UserDto): Promise<{ token: string }> {
     const { username, password } = signInDto;
 
     const user = await this.userModel.findOne({ username });
@@ -42,5 +41,13 @@ export class AuthService {
     const token = this.jwtService.sign({ id: user._id });
 
     return { token };
+  }
+
+  async findAll(): Promise<User[]> {
+    return this.userModel.find().exec();
+  }
+
+  async findOne(id: string): Promise<User> {
+    return this.userModel.findById(id).exec();
   }
 }

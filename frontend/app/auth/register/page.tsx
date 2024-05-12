@@ -18,7 +18,7 @@ export default function Home() {
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
 		try {
-			const response = await fetch('http://localhost:3001/auth/register', {
+			const response = await fetch('http://localhost:3001/user/register', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
