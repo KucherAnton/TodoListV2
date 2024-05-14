@@ -1,14 +1,17 @@
 'use client';
 
+import { loginUser } from '@/api/user.actions';
 import { checkAuthentication } from '@/utils/checkAuth';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Home() {
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
+	const username = useSelector((state: any) => state.user.username);
+	const password = useSelector((state: any) => state.user.password);
 	const router = useRouter();
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const isAuth = checkAuthentication();
@@ -17,25 +20,17 @@ export default function Home() {
 
 	const handleSubmit = async (e: any) => {
 		e.preventDefault();
-		try {
-			const response = await fetch('http://localhost:3001/user/login', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ username, password }),
-			});
-			if (response.ok) {
-				const { token } = await response.json();
-				localStorage.setItem('token', token);
-				console.log('Авторизация успешна');
-				router.push('/');
-			} else {
-				console.error('Ошибка аутентификации');
-			}
-		} catch (error) {
-			console.error('Произошла ошибка:', error);
-		}
+		const { token } = await loginUser(username, password);
+		localStorage.setItem('token', token);
+		router.push('/');
+	};
+
+	const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		dispatch({ type: 'SET_USERNAME', payload: e.target.value });
+	};
+
+	const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		dispatch({ type: 'SET_PASSWORD', payload: e.target.value });
 	};
 
 	return (
@@ -60,7 +55,7 @@ export default function Home() {
 							<input
 								required
 								className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-								onChange={(e) => setUsername(e.target.value)}
+								onChange={handleUsernameChange}
 							/>
 						</div>
 					</div>
@@ -77,7 +72,7 @@ export default function Home() {
 								name="password"
 								required
 								className="pl-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-								onChange={(e) => setPassword(e.target.value)}
+								onChange={handlePasswordChange}
 							/>
 						</div>
 					</div>

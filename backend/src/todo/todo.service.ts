@@ -47,7 +47,7 @@ export class TodoService {
     if (!deletedTodo) {
       throw new Error('Todo not found');
     }
-    // Удаление идентификатора тудушки из массива todos пользователя
+
     await this.userModel.updateMany(
       { todos: { $in: [deletedTodo._id] } },
       { $pull: { todos: deletedTodo._id } },

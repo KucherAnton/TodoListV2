@@ -1,12 +1,14 @@
 import React from 'react';
+import CurrentUser from './shared/CurrentUser';
+import FriendsSection from './shared/FriendsSection';
+import Logout from './shared/Logout';
 
 const LeftBar = () => {
 	return (
-		<section className="w-1/4 mt-4">
-			<div className="text-center my-5 flex flex-col gap-4">
-				<h1 className="text-2xl font-bold">Current user</h1>
-				<p></p>
-			</div>
+		<section className="w-1/4 flex flex-col h-screen justify-between">
+			<CurrentUser />
+			<FriendsSection />
+			<Logout />
 		</section>
 	);
 };

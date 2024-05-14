@@ -15,7 +15,7 @@ export default function Home() {
 	}, []);
 
 	return (
-		<main className="flex w-full">
+		<main className="flex w-full h-full">
 			<LeftBar />
 			<RightBar />
 		</main>
