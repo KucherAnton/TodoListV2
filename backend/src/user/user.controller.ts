@@ -25,4 +25,20 @@ export class UserController {
   async findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
+
+  @Post('/:username/friends/:friendUsername')
+  async addFriend(
+    @Param('username') username: string,
+    @Param('friendUsername') friendUsername: string,
+  ): Promise<void> {
+    await this.userService.addFriend(username, friendUsername);
+  }
+
+  @Delete('/:userId/friends/:friendId')
+  async deleteFriend(
+    @Param('userId') userId: string,
+    @Param('friendId') friendId: string,
+  ): Promise<void> {
+    await this.userService.deleteFriend(userId, friendId);
+  }
 }
