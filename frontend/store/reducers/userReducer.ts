@@ -1,7 +1,17 @@
-const initialState = {
+import { User } from '../types/user';
+
+interface UserState {
+	username: string;
+	password: string;
+	currentUser: User | null;
+	users: User[];
+}
+
+const initialState: UserState = {
 	username: '',
 	password: '',
 	currentUser: null,
+	users: [],
 };
 
 const userReducer = (state = initialState, action: any) => {
@@ -26,6 +36,16 @@ const userReducer = (state = initialState, action: any) => {
 			return {
 				...state,
 				currentUser: action.payload,
+			};
+		case 'ADD_FRIEND':
+			return {
+				...state,
+				users: [...state.users, action.payload],
+			};
+		case 'DELETE_FRIEND':
+			return {
+				...state,
+				users: state.users.filter((user) => user.id !== action.payload),
 			};
 		default:
 			return state;

@@ -32,13 +32,24 @@ export class TodoService {
     return this.todoModel.findById(id).exec();
   }
 
-  async update(id: string, todoDto: TodoDto): Promise<Todo> {
-    const updatedTodo = await this.todoModel.findByIdAndUpdate(id, todoDto, {
-      new: true,
-    });
+  async update(todoId: string, todoDto: TodoDto): Promise<Todo> {
+    const updatedTodo = await this.todoModel.findByIdAndUpdate(
+      todoId,
+      todoDto,
+      {
+        new: true,
+      },
+    );
+
     if (!updatedTodo) {
-      throw new NotFoundException(`Todo with id ${id} not found`);
+      throw new NotFoundException(`Todo with id ${todoId} not found`);
     }
+
+    this.userModel.findOneAndUpdate(
+      { todos: todoId },
+      { set$: { 'todos.$': updatedTodo } },
+    );
+
     return updatedTodo;
   }
 

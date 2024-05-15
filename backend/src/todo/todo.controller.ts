@@ -3,10 +3,10 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Post,
-  Req,
 } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { TodoDto } from './dto/Todo.dto';
@@ -31,7 +31,11 @@ export class TodoController {
     @Param('id') id: string,
     @Body() todoDto: TodoDto,
   ): Promise<Todo> {
-    return this.todoService.update(id, todoDto);
+    const updatedTodo = await this.todoService.update(id, todoDto);
+    if (!updatedTodo) {
+      throw new NotFoundException('Todo not found');
+    }
+    return updatedTodo;
   }
 
   @Delete(':id')

@@ -1,15 +1,9 @@
-import { getCurrentUser } from '@/api/user.actions';
 import { RootState } from '@/store/store';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 const CurrentUser = () => {
-	const dispatch = useDispatch();
 	const currentUser = useSelector((state: RootState) => state.user.currentUser);
-
-	useEffect(() => {
-		getCurrentUser(dispatch);
-	}, []);
 
 	return (
 		<div className="text-center my-5 flex flex-col gap-4">
