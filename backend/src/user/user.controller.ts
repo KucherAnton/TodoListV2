@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserDto } from 'src/user/dto/User.dto';
+import { User } from 'src/schemas/User.schema';
 
 @Controller('user')
 export class UserController {
@@ -30,8 +31,8 @@ export class UserController {
   async addFriend(
     @Param('username') username: string,
     @Param('friendUsername') friendUsername: string,
-  ): Promise<void> {
-    await this.userService.addFriend(username, friendUsername);
+  ): Promise<User> {
+    return this.userService.addFriend(username, friendUsername);
   }
 
   @Delete('/:userId/friends/:friendId')

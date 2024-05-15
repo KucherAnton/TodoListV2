@@ -4,14 +4,14 @@ interface UserState {
 	username: string;
 	password: string;
 	currentUser: User | null;
-	users: User[];
+	friends: User[];
 }
 
 const initialState: UserState = {
 	username: '',
 	password: '',
 	currentUser: null,
-	users: [],
+	friends: [],
 };
 
 const userReducer = (state = initialState, action: any) => {
@@ -40,12 +40,14 @@ const userReducer = (state = initialState, action: any) => {
 		case 'ADD_FRIEND':
 			return {
 				...state,
-				users: [...state.users, action.payload],
+				friends: [...state.friends, action.payload],
 			};
 		case 'DELETE_FRIEND':
 			return {
 				...state,
-				users: state.users.filter((user) => user.id !== action.payload),
+				friends: state.friends.filter(
+					(friend) => friend._id !== action.payload
+				),
 			};
 		default:
 			return state;

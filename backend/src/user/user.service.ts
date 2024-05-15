@@ -65,18 +65,19 @@ export class UserService {
       $push: { friends: friend._id },
     });
 
-    return user;
+    return friend;
   }
 
-  async deleteFriend(userId: string, friendId: string): Promise<void> {
-    const user = await this.userModel.findById(userId).exec();
+  async deleteFriend(userId: string, friendId: string): Promise<User> {
+    const user = await this.userModel.findOne({ _id: userId });
+    const friend = await this.userModel.findOne({ _id: friendId });
 
-    if (!user) throw new NotFoundException('User not found');
+    if (!user || !friend) throw new NotFoundException('User not found');
 
-    await this.userModel.findByIdAndUpdate(
-      userId,
-      { $pull: { friends: friendId } },
-      { new: true },
-    );
+    await this.userModel.findByIdAndUpdate(user._id, {
+      $pull: { friends: friend._id },
+    });
+
+    return user;
   }
 }

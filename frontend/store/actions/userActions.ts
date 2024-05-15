@@ -1,9 +1,4 @@
-import {
-	ADD_FRIEND,
-	DELETE_FRIEND,
-	User,
-	UserActionTypes,
-} from '../types/user';
+import { User } from '../types/user';
 
 export const setUsername = (username: string) => ({
 	type: 'SET_USERNAME',

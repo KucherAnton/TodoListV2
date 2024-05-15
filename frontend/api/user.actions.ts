@@ -74,6 +74,22 @@ export const getCurrentUser = async (dispatch: Dispatch) => {
 	}
 };
 
+export const getUser = async (userId: string) => {
+	try {
+		const response = await fetch(`http://localhost:3001/user/${userId}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+		if (!response.ok) throw new Error('Failed to fetch user');
+		const user = await response.json();
+		return user;
+	} catch (error: any) {
+		throw new Error(`Fetching error ${error.message}`);
+	}
+};
+
 export const getUserTodos = async (userId: string, dispatch: Dispatch) => {
 	try {
 		const response = await fetch(`http://localhost:3001/user/${userId}`, {
@@ -107,13 +123,13 @@ export const getUserFriends = async (userId: string, dispatch: Dispatch) => {
 			},
 		});
 
-		if (!response.ok) throw new Error('Failed to fetch user');
+		if (!response.ok) throw new Error('Failed to fetch friends');
 		const user = await response.json();
 		const friends = user.friends;
-
-		friends.forEach((friend: any) => {
-			dispatch(addFriend(friend));
-		});
+		for (const friendId of friends) {
+			const userFriend = await getUser(friendId);
+			dispatch(addFriend(userFriend));
+		}
 	} catch (error: any) {
 		throw new Error(`Fetching error ${error.message}`);
 	}
@@ -134,8 +150,11 @@ export const addUserFriend = async (
 		if (!response.ok) {
 			throw new Error('Failed to add user friend');
 		}
-		const newFriend = await response.json();
-		dispatch(addFriend(newFriend));
+		const friend = await response.json();
+		console.log(friend);
+		const userFriend = await getUser(friend._id);
+		console.log(userFriend);
+		dispatch(addFriend(userFriend));
 	} catch (error: any) {
 		throw new Error(`Adding user friend error: ${error.message}`);
 	}

@@ -11,7 +11,7 @@ const Logout = () => {
 	};
 
 	return (
-		<div className="flex justify-center mb-4">
+		<div className="flex justify-center mb-4 mt-auto">
 			<button
 				onClick={handleLogout}
 				className="btn btn-primary w-1/2 text-l font-bold">
