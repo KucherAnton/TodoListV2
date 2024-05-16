@@ -16,7 +16,7 @@ const TodoList = () => {
 
 	useEffect(() => {
 		if (currentUser) getUserTodos(currentUser._id, dispatch);
-	}, [currentUser, dispatch]);
+	}, [currentUser]);
 
 	const handleDelete = async (id: string) => {
 		await deleteCurrentTodo(id);

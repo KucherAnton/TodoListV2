@@ -16,7 +16,7 @@ export default function Home() {
 		const isAuth = checkAuthentication();
 		if (!isAuth) router.push('/auth/register');
 		getCurrentUser(dispatch);
-	}, [dispatch]);
+	}, []);
 
 	return (
 		<main className="flex w-full h-full">

@@ -28,3 +28,8 @@ export const deleteFriend = (friendId: string) => ({
 	type: 'DELETE_FRIEND',
 	payload: friendId,
 });
+
+export const setCurrentFriend = (friendId: string) => ({
+	type: 'SET_CURRENT_FRIEND',
+	payload: friendId,
+});

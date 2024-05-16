@@ -5,6 +5,7 @@ interface UserState {
 	password: string;
 	currentUser: User | null;
 	friends: User[];
+	currentFriend: string;
 }
 
 const initialState: UserState = {
@@ -12,6 +13,7 @@ const initialState: UserState = {
 	password: '',
 	currentUser: null,
 	friends: [],
+	currentFriend: '',
 };
 
 const userReducer = (state = initialState, action: any) => {
@@ -48,6 +50,11 @@ const userReducer = (state = initialState, action: any) => {
 				friends: state.friends.filter(
 					(friend) => friend._id !== action.payload
 				),
+			};
+		case 'SET_CURRENT_FRIEND':
+			return {
+				...state,
+				currentFriend: action.payload,
 			};
 		default:
 			return state;

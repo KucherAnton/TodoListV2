@@ -18,7 +18,7 @@ const FriendsSection = () => {
 
 	useEffect(() => {
 		if (currentUser) getUserFriends(currentUser._id, dispatch);
-	}, [currentUser, dispatch]);
+	}, [currentUser]);
 
 	return (
 		<div className="flex justify-center align-center flex-col text-center gap-y-2 mt-12">

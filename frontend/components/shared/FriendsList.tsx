@@ -1,5 +1,7 @@
 import { deleteUserFriend } from '@/api/user.actions';
+import { setCurrentFriend } from '@/store/actions/userActions';
 import { User } from '@/store/types/user';
+import Link from 'next/link';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -15,6 +17,10 @@ const FriendsList: React.FC<FriendListProps> = ({ friends, currentUser }) => {
 		deleteUserFriend(currentUser._id, friendId, dispatch);
 	};
 
+	const handleSelectFriend = (friendId: string) => {
+		dispatch(setCurrentFriend(friendId));
+	};
+
 	return (
 		<ul className="divide-y">
 			{friends.length === 0 ? (
@@ -24,7 +30,13 @@ const FriendsList: React.FC<FriendListProps> = ({ friends, currentUser }) => {
 					<li
 						key={friend._id}
 						className="flex justify-between items-center p-4">
-						{friend.username}
+						<Link href={`/user/${friend._id}`}>
+							<a
+								className="text-blue-500 hover:underline"
+								onClick={() => handleSelectFriend(friend._id)}>
+								{friend.username}
+							</a>
+						</Link>
 						<button
 							onClick={() => handleRemoveFriend(friend._id)}
 							className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">
